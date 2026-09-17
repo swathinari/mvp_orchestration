@@ -1,0 +1,20 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: routing-service
+  datasource:
+    url: ${ROUTING_DB_URL:jdbc:postgresql://localhost:5432/routing_db}
+    username: ${POSTGRES_USER:cpass}
+    password: ${POSTGRES_PASSWORD:local_only_change_me}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+cpass:
+  internal-secret: ${CPASS_INTERNAL_SECRET:local-internal-secret-change-me}
+  jwt:
+    secret: ${CPASS_JWT_SECRET:change-this-local-example-to-a-long-random-32-byte-secret}

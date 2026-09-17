@@ -1,0 +1,18 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: orchestration-service
+  datasource:
+    url: ${ORCHESTRATION_DB_URL:jdbc:postgresql://localhost:5432/orchestration_db}
+    username: ${POSTGRES_USER:cpass}
+    password: ${POSTGRES_PASSWORD:local_only_change_me}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+cpass:
+  internal-secret: ${CPASS_INTERNAL_SECRET:local-internal-secret-change-me}
+  jwt:
+    secret: ${CPASS_JWT_SECRET:change-this-local-example-to-a-long-random-32-byte-secret}
+  routing-url: ${ROUTING_URL:http://localhost:8083}
+  provider-url: ${PROVIDER_URL:http://localhost:8084}

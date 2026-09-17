@@ -1,0 +1,16 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: identity-service
+  datasource:
+    url: ${IDENTITY_DB_URL:jdbc:postgresql://localhost:5432/identity_db}
+    username: ${POSTGRES_USER:cpass}
+    password: ${POSTGRES_PASSWORD:local_only_change_me}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+cpass:
+  jwt:
+    secret: ${CPASS_JWT_SECRET:change-this-local-example-to-a-long-random-32-byte-secret}
+  demo-api-key: ${DEMO_API_KEY:local-demo-key}

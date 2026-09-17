@@ -1,0 +1,3 @@
+CREATE TABLE messages(id varchar(80) PRIMARY KEY,tenant_id varchar(80) NOT NULL,idempotency_key varchar(120) NOT NULL,request_hash varchar(64) NOT NULL,verification_id varchar(80) NOT NULL,status varchar(30) NOT NULL,channel varchar(30) NOT NULL,selected_provider varchar(80),trace_id varchar(80) NOT NULL,created_at timestamptz NOT NULL,UNIQUE(tenant_id,idempotency_key));
+CREATE INDEX ix_messages_tenant_id ON messages(tenant_id,id);
+CREATE TABLE attempts(id varchar(80) PRIMARY KEY,message_id varchar(80) NOT NULL REFERENCES messages(id),provider varchar(80) NOT NULL,status varchar(30) NOT NULL,external_id varchar(100),failure_code varchar(80),created_at timestamptz NOT NULL);

@@ -1,0 +1,34 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  cloud:
+    gateway:
+      default-filters:
+        - RemoveRequestHeader=Cookie
+      routes:
+        - id: auth
+          uri: ${IDENTITY_URL:http://localhost:8081}
+          predicates: ["Path=/auth/**"]
+        - id: orchestration
+          uri: ${ORCHESTRATION_URL:http://localhost:8082}
+          predicates: ["Path=/v1/**"]
+          filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                key-resolver: "#{@tenantKeyResolver}"
+cpass:
+  jwt:
+    secret: ${CPASS_JWT_SECRET:change-this-local-example-to-a-long-random-32-byte-secret}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

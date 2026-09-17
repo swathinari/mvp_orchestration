@@ -1,0 +1,10 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: provider-service
+cpass:
+  internal-secret: ${CPASS_INTERNAL_SECRET:local-internal-secret-change-me}
+  jwt:
+    secret: ${CPASS_JWT_SECRET:change-this-local-example-to-a-long-random-32-byte-secret}
+  provider-a-mode: ${PROVIDER_A_MODE:ACCEPT}
